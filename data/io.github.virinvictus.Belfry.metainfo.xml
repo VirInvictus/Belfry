@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+    <id>io.github.virinvictus.Belfry</id>
+    <metadata_license>CC0-1.0</metadata_license>
+    <project_license>GPL-3.0-or-later</project_license>
+    <name>Belfry</name>
+    <summary>A native GNOME podcast client</summary>
+    <description>
+        <p>
+            Belfry is a podcast client for GNOME that combines Overcast's audio engine
+            (Smart Speed silence-skipping, Voice Boost compression and EQ) with Castro's
+            Inbox to Queue triage model on top of a filesystem-canonical library.
+        </p>
+        <p>
+            Per-show overrides for everything that affects playback. Streaming and
+            background download. Bulk-action subscription management at scale. MPRIS2
+            integration for the GNOME media overlay and Bluetooth headset buttons.
+            Local-first: no telemetry, no cloud, no recommendations.
+        </p>
+    </description>
+    <launchable type="desktop-id">io.github.virinvictus.Belfry.desktop</launchable>
+    <url type="homepage">https://github.com/virinvictus/Belfry</url>
+    <url type="bugtracker">https://github.com/virinvictus/Belfry/issues</url>
+    <developer id="io.github.virinvictus">
+        <name>Brandon LaRocque</name>
+    </developer>
+    <content_rating type="oars-1.1" />
+    <releases>
+        <release version="0.0.2" date="2026-05-09">
+            <description>
+                <p>Phase 1 — SQLite spine. Single-writer worker, read-only connection pool, full domain CRUD (shows, episodes, playback, show_settings, listening_sessions, chapters, tags), schema migration runner, fixture generator (100 / 1K / 10K / 50K episodes via belfry --fixture). FTS5 triggers verified end-to-end. 65 tests pass; cold-start perf gate landed 1.5 ms vs the 250 ms budget. No UI integration yet.</p>
+            </description>
+        </release>
+        <release version="0.0.1" date="2026-05-09">
+            <description>
+                <p>Phase 0 scaffolding. Cargo workspace stood up with four crates (belfry-core, belfry-search, belfry-cli, belfry). Build infrastructure, CI, GSettings schema, AppStream metainfo, and Flatpak manifest skeleton in place. No application logic yet.</p>
+            </description>
+        </release>
+    </releases>
+    <categories>
+        <category>AudioVideo</category>
+        <category>Audio</category>
+        <category>Player</category>
+    </categories>
+    <recommends>
+        <control>keyboard</control>
+        <control>pointing</control>
+    </recommends>
+    <requires>
+        <display_length compare="ge">600</display_length>
+    </requires>
+    <branding>
+        <color type="primary" scheme_preference="light">#9bb6e0</color>
+        <color type="primary" scheme_preference="dark">#1c2c4a</color>
+    </branding>
+</component>

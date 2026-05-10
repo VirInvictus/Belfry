@@ -1,0 +1,68 @@
+[workspace]
+resolver = "3"
+members = ["belfry-core", "belfry-search", "belfry-cli", "belfry"]
+
+[workspace.package]
+version = "0.0.2"
+edition = "2024"
+rust-version = "1.85"
+license = "GPL-3.0-or-later"
+repository = "https://github.com/virinvictus/Belfry"
+authors = ["Brandon LaRocque <larocque.brandon@gmail.com>"]
+
+[workspace.dependencies]
+# Async + IO
+tokio = { version = "1.42", features = ["full"] }
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "gzip", "brotli", "stream"] }
+
+# Storage
+rusqlite = { version = "0.32", features = ["bundled", "chrono", "trace"] }
+
+# Feed parsing
+feed-rs = "2.2"
+quick-xml = "0.37"
+
+# Playback
+libmpv2 = "4.1"
+
+# HTML / chapters / images
+ammonia = "4.0"
+id3 = "1.16"
+image = { version = "0.25", default-features = false, features = ["jpeg", "png"] }
+
+# Credentials (libsecret)
+oo7 = "0.3"
+
+# D-Bus (MPRIS2 + suspend inhibitor)
+zbus = { version = "5.2", default-features = false, features = ["tokio"] }
+
+# Serde / config
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.8"
+
+# Misc
+regex = "1.11"
+chrono = { version = "0.4", default-features = false, features = ["std", "clock", "serde"] }
+url = "2.5"
+anyhow = "1.0"
+thiserror = "2.0"
+
+# Tracing
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# CLI
+clap = { version = "4.5", features = ["derive"] }
+
+# Test infrastructure
+tempfile = "3.14"
+
+# GTK
+gtk4 = { version = "0.9", features = ["v4_16"] }
+libadwaita = { version = "0.7", features = ["v1_7"] }
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = true

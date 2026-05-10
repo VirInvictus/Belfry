@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="belfry">
+    <enum id="io.github.virinvictus.Belfry.InboxPolicy">
+        <value nick="inbox" value="0" />
+        <value nick="always-queue" value="1" />
+        <value nick="always-archive" value="2" />
+    </enum>
+
+    <enum id="io.github.virinvictus.Belfry.ColorScheme">
+        <value nick="system" value="0" />
+        <value nick="light" value="1" />
+        <value nick="dark" value="2" />
+    </enum>
+
+    <schema id="io.github.virinvictus.Belfry" path="/io/github/virinvictus/Belfry/">
+
+        <!-- Library ============================================== -->
+        <key name="library-path" type="s">
+            <default>""</default>
+            <summary>Library directory</summary>
+            <description>Absolute path to the podcast library. Empty falls back to $XDG_DATA_HOME/belfry.</description>
+        </key>
+
+        <!-- Playback ============================================= -->
+        <key name="default-speed" type="d">
+            <range min="0.5" max="3.0" />
+            <default>1.0</default>
+            <summary>Default playback speed</summary>
+        </key>
+        <key name="smart-speed-default" type="b">
+            <default>true</default>
+            <summary>Smart Speed enabled by default for new shows</summary>
+        </key>
+        <key name="voice-boost-default" type="b">
+            <default>false</default>
+            <summary>Voice Boost enabled by default for new shows</summary>
+        </key>
+        <key name="skip-forward-seconds" type="i">
+            <range min="5" max="60" />
+            <default>30</default>
+            <summary>Skip-forward interval (seconds)</summary>
+        </key>
+        <key name="skip-back-seconds" type="i">
+            <range min="5" max="60" />
+            <default>15</default>
+            <summary>Skip-back interval (seconds)</summary>
+        </key>
+        <key name="resume-offset-seconds" type="i">
+            <range min="0" max="10" />
+            <default>3</default>
+            <summary>Resume offset (seconds)</summary>
+            <description>Number of seconds to rewind when resuming playback after pause.</description>
+        </key>
+
+        <!-- Smart Speed tuning =================================== -->
+        <key name="smart-speed-silence-threshold-db" type="d">
+            <range min="-60.0" max="-20.0" />
+            <default>-40.0</default>
+            <summary>Smart Speed silence threshold (dB)</summary>
+        </key>
+        <key name="smart-speed-min-silence-duration" type="d">
+            <range min="0.1" max="2.0" />
+            <default>0.3</default>
+            <summary>Minimum silence duration before compression (seconds)</summary>
+        </key>
+        <key name="smart-speed-residual-silence" type="d">
+            <range min="0.0" max="0.5" />
+            <default>0.15</default>
+            <summary>Residual silence kept after compression (seconds)</summary>
+        </key>
+
+        <!-- Sleep timer ========================================== -->
+        <key name="sleep-timer-default-minutes" type="i">
+            <range min="5" max="120" />
+            <default>30</default>
+            <summary>Default sleep timer duration (minutes)</summary>
+        </key>
+        <key name="sleep-timer-tap-extend-window-seconds" type="i">
+            <range min="0" max="60" />
+            <default>30</default>
+            <summary>Tap-to-extend window after sleep timer fires (seconds)</summary>
+        </key>
+
+        <!-- Triage =============================================== -->
+        <key name="inbox-policy-default" enum="io.github.virinvictus.Belfry.InboxPolicy">
+            <default>'inbox'</default>
+            <summary>Default inbox policy for new shows</summary>
+        </key>
+
+        <!-- Downloads + retention ================================ -->
+        <key name="max-concurrent-downloads" type="i">
+            <range min="1" max="10" />
+            <default>3</default>
+            <summary>Maximum concurrent downloads</summary>
+        </key>
+        <key name="auto-download-new" type="b">
+            <default>true</default>
+            <summary>Auto-download new episodes by default</summary>
+        </key>
+        <key name="delete-after-played" type="b">
+            <default>false</default>
+            <summary>Delete episodes after playback by default</summary>
+        </key>
+        <key name="delete-after-played-delay-days" type="i">
+            <range min="0" max="365" />
+            <default>0</default>
+            <summary>Delay before auto-delete after playback (days)</summary>
+        </key>
+
+        <!-- Fetch ================================================ -->
+        <key name="default-fetch-interval-seconds" type="i">
+            <range min="300" max="86400" />
+            <default>3600</default>
+            <summary>Default per-show fetch interval (seconds)</summary>
+        </key>
+        <key name="fetch-jitter-percent" type="i">
+            <range min="0" max="50" />
+            <default>10</default>
+            <summary>Jitter applied to fetch interval (percent)</summary>
+        </key>
+
+        <!-- Notifications ======================================== -->
+        <key name="notifications-new-episodes" type="b">
+            <default>false</default>
+            <summary>Notify on new episodes</summary>
+            <description>Off by default — at high subscription counts, on-by-default is spam.</description>
+        </key>
+        <key name="notifications-download-complete" type="b">
+            <default>false</default>
+            <summary>Notify on download completion</summary>
+        </key>
+
+        <!-- Appearance =========================================== -->
+        <key name="color-scheme" enum="io.github.virinvictus.Belfry.ColorScheme">
+            <default>'system'</default>
+            <summary>Color scheme</summary>
+        </key>
+
+        <!-- Window state ========================================= -->
+        <key name="window-width" type="i">
+            <default>1100</default>
+            <summary>Window width (pixels)</summary>
+        </key>
+        <key name="window-height" type="i">
+            <default>740</default>
+            <summary>Window height (pixels)</summary>
+        </key>
+        <key name="window-maximized" type="b">
+            <default>false</default>
+            <summary>Window maximized state</summary>
+        </key>
+    </schema>
+</schemalist>

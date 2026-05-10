@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Belfry
+GenericName=Podcast Client
+Comment=A native GNOME podcast client with Smart Speed and Voice Boost
+Exec=belfry
+Icon=io.github.virinvictus.Belfry
+Terminal=false
+Type=Application
+Categories=AudioVideo;Audio;Player;
+StartupNotify=true
+Keywords=podcast;audio;rss;mpv;

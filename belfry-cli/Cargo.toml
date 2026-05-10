@@ -1,0 +1,20 @@
+[package]
+name = "belfry-cli"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[[bin]]
+name = "belfry-cli"
+path = "src/main.rs"
+
+[dependencies]
+belfry-core = { path = "../belfry-core" }
+anyhow = { workspace = true }
+clap = { workspace = true }
+tokio = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }

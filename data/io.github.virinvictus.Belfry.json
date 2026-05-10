@@ -1,0 +1,98 @@
+{
+    "id": "io.github.virinvictus.Belfry",
+    "runtime": "org.gnome.Platform",
+    "runtime-version": "50",
+    "sdk": "org.gnome.Sdk",
+    "sdk-extensions": ["org.freedesktop.Sdk.Extension.rust-stable"],
+    "command": "belfry",
+    "finish-args": [
+        "--share=ipc",
+        "--share=network",
+        "--socket=fallback-x11",
+        "--socket=wayland",
+        "--socket=pulseaudio",
+        "--device=dri",
+        "--talk-name=org.freedesktop.secrets",
+        "--own-name=org.mpris.MediaPlayer2.Belfry"
+    ],
+    "build-options": {
+        "append-path": "/usr/lib/sdk/rust-stable/bin",
+        "build-args": ["--share=network"],
+        "env": {
+            "CARGO_HOME": "/run/build/belfry/cargo"
+        }
+    },
+    "modules": [
+        {
+            "name": "rubberband",
+            "buildsystem": "meson",
+            "config-opts": [
+                "-Dvamp=disabled",
+                "-Dladspa=disabled",
+                "-Dlv2=disabled",
+                "-Djni=disabled",
+                "-Dcli=disabled"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/breakfastquay/rubberband.git",
+                    "tag": "v3.3.0"
+                }
+            ]
+        },
+        {
+            "name": "ffmpeg",
+            "config-opts": [
+                "--enable-gpl",
+                "--enable-version3",
+                "--enable-librubberband",
+                "--enable-shared",
+                "--disable-static",
+                "--disable-doc",
+                "--disable-programs",
+                "--disable-network",
+                "--disable-everything",
+                "--enable-decoder=mp3,aac,opus,vorbis,flac",
+                "--enable-demuxer=mp3,aac,ogg,flac,mov,matroska,asf",
+                "--enable-parser=mpegaudio,aac,opus,vorbis,flac",
+                "--enable-protocol=file",
+                "--enable-filter=silenceremove,acompressor,equalizer,loudnorm,rubberband,aresample"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://ffmpeg.org/releases/ffmpeg-7.1.tar.xz",
+                    "sha256": "TODO-fill-on-first-build"
+                }
+            ]
+        },
+        {
+            "name": "mpv",
+            "buildsystem": "meson",
+            "config-opts": [
+                "-Dlibmpv=true",
+                "-Dcplayer=false",
+                "-Dgl=disabled",
+                "-Dvulkan=disabled"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/mpv-player/mpv/archive/refs/tags/v0.40.0.tar.gz",
+                    "sha256": "TODO-fill-on-first-build"
+                }
+            ]
+        },
+        {
+            "name": "belfry",
+            "buildsystem": "meson",
+            "sources": [
+                {
+                    "type": "dir",
+                    "path": "../"
+                }
+            ]
+        }
+    ]
+}
