@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">
+  <channel>
+    <title>iTunes Namespace Show</title>
+    <link>https://example.com/itunes</link>
+    <description>iTunes namespace test feed.</description>
+    <itunes:author>Test Author</itunes:author>
+    <itunes:image href="https://example.com/itunes/cover.jpg"/>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:category text="Technology"/>
+    <item>
+      <title>iTunes Episode 1</title>
+      <guid isPermaLink="false">itunes-ep1</guid>
+      <pubDate>Mon, 01 Jan 2024 12:00:00 GMT</pubDate>
+      <enclosure url="https://example.com/itunes/ep1.mp3" length="100" type="audio/mpeg"/>
+      <description>iTunes ep1.</description>
+      <itunes:duration>1830</itunes:duration>
+      <itunes:season>1</itunes:season>
+      <itunes:episode>1</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://example.com/itunes/ep1.jpg"/>
+    </item>
+    <item>
+      <title>iTunes Trailer</title>
+      <guid isPermaLink="false">itunes-trailer</guid>
+      <pubDate>Sun, 31 Dec 2023 12:00:00 GMT</pubDate>
+      <enclosure url="https://example.com/itunes/trailer.mp3" length="50" type="audio/mpeg"/>
+      <description>iTunes trailer.</description>
+      <itunes:duration>120</itunes:duration>
+      <itunes:episodeType>trailer</itunes:episodeType>
+    </item>
+  </channel>
+</rss>

@@ -121,24 +121,68 @@ Cargo workspace stood up; four crates (`belfry-core`, `belfry-search`, `belfry-c
 
 ### Phase 2 — Fetch Coordinator (v0.0.3)
 
-**Goal:** feeds in. Conditional GET, podcast namespace handling, error cooldown.
+**Goal:** feeds in. Conditional GET, podcast namespace handling, HTTP Basic auth, error cooldown. Single-shot pipeline; no continuous background loop yet (Phase 4 GUI ticker wires that).
 
-- [ ] `belfry-core::fetch` — submodules: `scheduler`, `client`, `parser`, `namespace`.
+#### Subphases
+
+| # | Slice | Files | Test surface |
+|---|---|---|---|
+| 2.1 | Synthetic feed fixtures + namespace handler | 9 fixture XMLs + `fetch/namespace.rs` | unit: `<podcast:*>` element parsing; tolerance for malformed XML |
+| 2.2 | feed-rs parser + ParsedFeed | `fetch/parser.rs` | integration: parse all 9 fixtures; itunes namespace fallbacks |
+| 2.3 | HTTP client with conditional GET | `fetch/client.rs` | wiremock: 200 / 304 / 429 / 401 |
+| 2.4 | CredentialStore trait + auth module | `fetch/auth.rs` | unit + wiremock 401 → retry-with-auth |
+| 2.5 | Episode upsert + show touch worker commands | `db/crud/{episodes,shows}.rs`, `command.rs`, `worker.rs` | integration: Inserted / Updated / Unchanged outcomes |
+| 2.6 | Scheduler (pure functions) | `fetch/scheduler.rs` | unit: jitter bounds; `is_due` boundaries |
+| 2.7 | Coordinator orchestration | `fetch/coordinator.rs` | integration: end-to-end fetch + parse + apply |
+| 2.8 | CLI refresh subcommand | `belfry-cli/src/main.rs` | smoke: `belfry-cli refresh --show=<slug>` against wiremock |
+| 2.9 | Perf gate measurement | `tests/fetch_perf.rs` (`#[ignore]`) | release-build: 100 concurrent fetches ≤ 5s |
+
+#### Public API additions
+
+- `belfry-core::fetch::{Client, FetchOutcome, FetchCoordinator, RefreshOutcome, ParsedFeed, EpisodeCandidate}`.
+- `belfry-core::fetch::scheduler::{is_due, next_fetch_time, shows_due}` — pure functions.
+- `belfry-core::fetch::auth::{CredentialStore, Oo7Backend, InMemoryBackend}`.
+- New `WorkerHandle` methods: `get_show_by_slug`, `upsert_episode_by_guid` (returns `UpsertOutcome::{Inserted, Updated, Unchanged}`), `touch_show_after_fetch`.
+
+#### Deliverables checklist
+
+- [ ] `belfry-core::fetch` module tree (`mod`, `client`, `parser`, `namespace`, `scheduler`, `coordinator`, `auth`).
 - [ ] `feed-rs` integration for RSS / Atom / JSON Feed core.
-- [ ] Hand-rolled `podcast:` namespace pass via `quick-xml`. v0.0.3 covers `<podcast:guid>`, `<podcast:season>`, `<podcast:episode>`; `<podcast:chapters>` parsed but not stored until Phase 14. Other namespace elements logged at TRACE and dropped.
+- [ ] Hand-rolled `podcast:` namespace pass via `quick-xml`. v0.0.3 covers `<podcast:guid>`, `<podcast:season>`, `<podcast:episode>`; `<podcast:chapters>` URL parsed but storage deferred to Phase 14. Other namespace elements logged at TRACE and dropped. See `docs/podcast-namespace-coverage.md`.
 - [ ] Conditional GET (`If-Modified-Since`, `If-None-Match`); 304 short-circuits the entire pipeline.
-- [ ] HTTP 429 honors `Retry-After`; per-show error cooldown list.
-- [ ] Per-show interval scheduler (default 1 hour, ±10% jitter).
-- [ ] CLI: `belfry-cli refresh [--show=SLUG]` triggers fetch.
-- [ ] **Debug harness Phase 2:** SQLite IO tracing — every statement + elapsed wall time at TRACE level.
+- [ ] HTTP 429 honors `Retry-After`; per-show error cooldown table (in-memory `HashMap<show_id, retry_after>`).
+- [ ] HTTP Basic auth via `oo7` (libsecret) behind a `CredentialStore` trait. `InMemoryBackend` for tests.
+- [ ] Per-show interval scheduler (default 1 hour, ±10% jitter) — pure functions; the call site triggers refreshes.
+- [ ] `WorkerHandle::upsert_episode_by_guid` + `touch_show_after_fetch` + `get_show_by_slug`.
+- [ ] CLI: `belfry-cli refresh [--show=<slug>] [--max-concurrent=<N>]`.
+- [ ] **Debug harness Phase 2:** SQLite IO tracing — already wired in Phase 1's worker as TRACE-level logs (`kind` + `elapsed_us`). Phase 2 adds matching tracing on the fetch path so `RUST_LOG=trace` reveals every HTTP request + parse pass + worker command.
 
-**Tests (headless):** parse 10 real feeds drawn from Brandon's OPML (snapshot tests on parsed Episode rows); 304 short-circuit; HTTP 429 with `Retry-After`; synthetic feeds with namespace elements; GUID dedup behavior.
+#### Test strategy
 
-**Maintenance:** `belfry-core::fetch` split into submodules if `fetch.rs` >300 LOC.
+| Layer | Coverage |
+|---|---|
+| Unit (in-module) | namespace handler element parsing; scheduler jitter / boundary; auth backend round-trip |
+| Integration headless | feed parser × 9 fixture feeds; HTTP client × wiremock paths (200/304/429/401); auth × wiremock retry; episode upsert × Inserted/Updated/Unchanged; coordinator end-to-end |
+| Manual smoke | `belfry-cli refresh` against Brandon's actual OPML before shipping; any edge cases logged in `docs/podcast-namespace-coverage.md` |
 
-**Performance gate:** 100 feed fetches concurrently in ≤ 5 s on warm cache.
+**Performance gate:** 100 feed fetches concurrently in ≤ 5s on warm cache (mock 304). Release build. Captured in `docs/perf-notes.md` Phase 2 row.
 
-**Release tasks:** bump to v0.0.3, namespace coverage matrix updated, perf-notes appended.
+#### NON-goals (deferred)
+
+- No continuous background tokio loop (Phase 4 GUI ticker).
+- No `<podcast:chapters>` storage (Phase 14).
+- No `<podcast:transcript>` ingestion (out of scope per spec §1).
+- No OAuth / signed-URL auth (post-1.0).
+- No GUI integration (Phase 4).
+
+#### New dependencies (sign-off needed)
+
+- **`wiremock = "0.6"`** — workspace dev-dep. HTTP mock server for `fetch/client` tests.
+- **`bytes`** — workspace dep (already transitive via reqwest; making it explicit because `FetchOutcome::Body` surfaces `Bytes`).
+
+**Maintenance:** if any fetch submodule >300 LOC, split before adding more.
+
+**Release tasks:** bump to v0.0.3; patchnotes Atrium-shape entry; AppStream `<release>`; namespace-coverage matrix + perf-notes updated; roadmap checkboxes flipped.
 
 ### Phase 3 — OPML + Authentication (v0.0.4)
 

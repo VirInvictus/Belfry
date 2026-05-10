@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:podcast="https://podcastindex.org/namespace/1.0">
+  <channel>
+    <title>Malformed Show</title>
+    <link>https://example.com/malformed</link>
+    <description>Tests parser tolerance — invalid season number, otherwise valid structure.</description>
+    <item>
+      <title>Good Episode</title>
+      <guid isPermaLink="false">mf-good</guid>
+      <pubDate>Mon, 01 Jan 2024 12:00:00 GMT</pubDate>
+      <enclosure url="https://example.com/malformed/good.mp3" length="100" type="audio/mpeg"/>
+      <description>This one is fine.</description>
+      <podcast:guid>EP-GOOD-GUID</podcast:guid>
+    </item>
+    <item>
+      <title>Episode With Bad Season</title>
+      <guid isPermaLink="false">mf-bad-num</guid>
+      <pubDate>Mon, 08 Jan 2024 12:00:00 GMT</pubDate>
+      <enclosure url="https://example.com/malformed/bad.mp3" length="100" type="audio/mpeg"/>
+      <description>Season number is non-numeric; episode number is fine.</description>
+      <podcast:season>not-a-number</podcast:season>
+      <podcast:episode>1</podcast:episode>
+    </item>
+  </channel>
+</rss>

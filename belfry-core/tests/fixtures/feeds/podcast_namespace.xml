@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:podcast="https://podcastindex.org/namespace/1.0">
+  <channel>
+    <title>Podcast Namespace Show</title>
+    <link>https://example.com/podcast-namespace</link>
+    <description>Tests podcast: namespace elements.</description>
+    <podcast:guid>SHOW-GUID-12345</podcast:guid>
+    <item>
+      <title>Season 1 Episode 1</title>
+      <guid isPermaLink="false">pn-s1e1</guid>
+      <pubDate>Mon, 01 Jan 2024 12:00:00 GMT</pubDate>
+      <enclosure url="https://example.com/pn/s1e1.mp3" length="100" type="audio/mpeg"/>
+      <description>S1E1 description.</description>
+      <podcast:guid>EP-S1E1-GUID</podcast:guid>
+      <podcast:season>1</podcast:season>
+      <podcast:episode>1</podcast:episode>
+    </item>
+    <item>
+      <title>Season 2 Episode 5</title>
+      <guid isPermaLink="false">pn-s2e5</guid>
+      <pubDate>Mon, 08 Jan 2024 12:00:00 GMT</pubDate>
+      <enclosure url="https://example.com/pn/s2e5.mp3" length="200" type="audio/mpeg"/>
+      <description>S2E5 description.</description>
+      <podcast:guid>EP-S2E5-GUID</podcast:guid>
+      <podcast:season>2</podcast:season>
+      <podcast:episode>5</podcast:episode>
+    </item>
+  </channel>
+</rss>

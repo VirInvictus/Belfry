@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Basic RSS Show</title>
+    <link>https://example.com/basic-rss</link>
+    <description>A minimal RSS 2.0 feed for testing.</description>
+    <language>en-us</language>
+    <item>
+      <title>Episode One</title>
+      <link>https://example.com/basic-rss/ep1</link>
+      <guid isPermaLink="false">basic-rss-ep1</guid>
+      <pubDate>Mon, 01 Jan 2024 12:00:00 GMT</pubDate>
+      <enclosure url="https://example.com/basic-rss/ep1.mp3" length="1234567" type="audio/mpeg"/>
+      <description>The first episode.</description>
+    </item>
+    <item>
+      <title>Episode Two</title>
+      <link>https://example.com/basic-rss/ep2</link>
+      <guid isPermaLink="false">basic-rss-ep2</guid>
+      <pubDate>Mon, 08 Jan 2024 12:00:00 GMT</pubDate>
+      <enclosure url="https://example.com/basic-rss/ep2.mp3" length="2345678" type="audio/mpeg"/>
+      <description>The second episode.</description>
+    </item>
+  </channel>
+</rss>

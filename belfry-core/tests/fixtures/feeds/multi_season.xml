@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:podcast="https://podcastindex.org/namespace/1.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">
+  <channel>
+    <title>Multi-Season Show</title>
+    <link>https://example.com/multi</link>
+    <description>Multiple seasons across episodes.</description>
+    <item>
+      <title>S3E2</title>
+      <guid isPermaLink="false">ms-s3e2</guid>
+      <pubDate>Mon, 08 Jan 2024 12:00:00 GMT</pubDate>
+      <enclosure url="https://example.com/multi/s3e2.mp3" length="100" type="audio/mpeg"/>
+      <description>Newest.</description>
+      <podcast:season>3</podcast:season>
+      <podcast:episode>2</podcast:episode>
+    </item>
+    <item>
+      <title>S3E1</title>
+      <guid isPermaLink="false">ms-s3e1</guid>
+      <pubDate>Mon, 01 Jan 2024 12:00:00 GMT</pubDate>
+      <enclosure url="https://example.com/multi/s3e1.mp3" length="100" type="audio/mpeg"/>
+      <description>Season 3 premiere.</description>
+      <podcast:season>3</podcast:season>
+      <podcast:episode>1</podcast:episode>
+    </item>
+    <item>
+      <title>S2E12</title>
+      <guid isPermaLink="false">ms-s2e12</guid>
+      <pubDate>Sun, 31 Dec 2023 12:00:00 GMT</pubDate>
+      <enclosure url="https://example.com/multi/s2e12.mp3" length="100" type="audio/mpeg"/>
+      <description>Season 2 finale.</description>
+      <podcast:season>2</podcast:season>
+      <podcast:episode>12</podcast:episode>
+    </item>
+  </channel>
+</rss>

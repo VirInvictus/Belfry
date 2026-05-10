@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:podcast="https://podcastindex.org/namespace/1.0">
+  <channel>
+    <title>Chapter URL Show</title>
+    <link>https://example.com/chapters</link>
+    <description>Feed with podcast:chapters URL (parsed but not fetched in v0.0.3).</description>
+    <item>
+      <title>Episode With Chapters</title>
+      <guid isPermaLink="false">chapters-ep1</guid>
+      <pubDate>Mon, 01 Jan 2024 12:00:00 GMT</pubDate>
+      <enclosure url="https://example.com/chapters/ep1.mp3" length="100" type="audio/mpeg"/>
+      <description>Has external chapters file.</description>
+      <podcast:chapters url="https://example.com/chapters/ep1-chapters.json" type="application/json+chapters"/>
+    </item>
+  </channel>
+</rss>

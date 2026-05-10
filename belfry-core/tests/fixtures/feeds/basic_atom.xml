@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Basic Atom Show</title>
+  <id>https://example.com/basic-atom</id>
+  <link href="https://example.com/basic-atom"/>
+  <updated>2024-01-08T12:00:00Z</updated>
+  <subtitle>A minimal Atom feed for testing.</subtitle>
+  <author>
+    <name>Test Author</name>
+  </author>
+  <entry>
+    <title>Atom Episode One</title>
+    <id>basic-atom-ep1</id>
+    <updated>2024-01-01T12:00:00Z</updated>
+    <published>2024-01-01T12:00:00Z</published>
+    <link rel="enclosure" type="audio/mpeg" length="1234567" href="https://example.com/basic-atom/ep1.mp3"/>
+    <summary>The first Atom episode.</summary>
+  </entry>
+  <entry>
+    <title>Atom Episode Two</title>
+    <id>basic-atom-ep2</id>
+    <updated>2024-01-08T12:00:00Z</updated>
+    <published>2024-01-08T12:00:00Z</published>
+    <link rel="enclosure" type="audio/mpeg" length="2345678" href="https://example.com/basic-atom/ep2.mp3"/>
+    <summary>The second Atom episode.</summary>
+  </entry>
+</feed>

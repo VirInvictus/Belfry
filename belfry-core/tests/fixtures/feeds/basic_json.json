@@ -1,0 +1,37 @@
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": "Basic JSON Show",
+  "home_page_url": "https://example.com/basic-json",
+  "feed_url": "https://example.com/basic-json/feed.json",
+  "description": "A minimal JSON Feed for testing.",
+  "items": [
+    {
+      "id": "basic-json-ep1",
+      "title": "JSON Episode One",
+      "url": "https://example.com/basic-json/ep1",
+      "date_published": "2024-01-01T12:00:00Z",
+      "summary": "The first JSON episode.",
+      "attachments": [
+        {
+          "url": "https://example.com/basic-json/ep1.mp3",
+          "mime_type": "audio/mpeg",
+          "size_in_bytes": 1234567
+        }
+      ]
+    },
+    {
+      "id": "basic-json-ep2",
+      "title": "JSON Episode Two",
+      "url": "https://example.com/basic-json/ep2",
+      "date_published": "2024-01-08T12:00:00Z",
+      "summary": "The second JSON episode.",
+      "attachments": [
+        {
+          "url": "https://example.com/basic-json/ep2.mp3",
+          "mime_type": "audio/mpeg",
+          "size_in_bytes": 2345678
+        }
+      ]
+    }
+  ]
+}

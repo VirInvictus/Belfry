@@ -55,8 +55,12 @@ tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 # CLI
 clap = { version = "4.5", features = ["derive"] }
 
+# HTTP types (already transitive via reqwest; explicit because FetchOutcome::Body surfaces Bytes)
+bytes = "1.7"
+
 # Test infrastructure
 tempfile = "3.14"
+wiremock = "0.6"
 
 # GTK
 gtk4 = { version = "0.9", features = ["v4_16"] }
