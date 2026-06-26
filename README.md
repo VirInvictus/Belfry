@@ -6,10 +6,12 @@
   <a href="https://www.rust-lang.org/"><img src="https://img.shields.io/badge/Language-Rust-blue" alt="Language: Rust"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-GPL--3.0--or--later-blue.svg" alt="License: GPL-3.0-or-later"></a>
   <img src="https://img.shields.io/badge/GNOME-50%2B-4a86cf" alt="GNOME 50+">
-  <img src="https://img.shields.io/badge/status-specification%20draft-orange" alt="Status: specification draft">
+  <img src="https://img.shields.io/badge/status-retired%20%E2%86%92%20Conservatory-lightgrey" alt="Status: retired, superseded by Conservatory">
 </p>
 
 ---
+
+> **Retired (June 2026).** Belfry has been absorbed into [**Conservatory**](https://github.com/VirInvictus/Conservatory), a native GNOME library manager for music, podcasts, and audiobooks. Belfry's single-writer SQLite worker, its podcast fetch/parse/triage subsystem, and its libmpv audio engine (Smart Speed, Voice Boost, the sleep timer) all live there now, alongside a music library manager and a unified queue that interleaves tracks, episodes, and audiobooks. The one design change is that Conservatory is database-canonical (it owns and moves your files) rather than filesystem-canonical. Conservatory reached podcast parity at v0.0.52, at which point this repo was frozen and archived. It stays public as a reference; new work happens in Conservatory.
 
 # Belfry
 
